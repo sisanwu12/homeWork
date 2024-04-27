@@ -7,7 +7,7 @@ class Board {
 public:
 	Piece board[15][29];
 	Board();
-	void PointBoard();
+	void PrintBoard();
 	int getI(int y);
 	int getJ(int x);
 };

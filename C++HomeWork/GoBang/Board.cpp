@@ -1,9 +1,10 @@
 #include "Board.h"
 
-
+//
 int Board::getI(int y) {
 	return 14 - y;
 }
+
 
 int Board::getJ(int x) {
 	return x * 2 - 2;
@@ -73,7 +74,7 @@ Board::Board() {
 }
 
 // ÆåÅÌ´òÓ¡º¯Êı
-void Board::PointBoard() {
+void Board::PrintBoard() {
 	for (int i = 0; i < 15; i++) {
 		for (int j = 0; j < 29; j++) {
 			if (j == 0) {
@@ -91,4 +92,5 @@ void Board::PointBoard() {
 			if (i / 2 < 9) cout << ' ';
 		}
 	}
+	cout << endl << endl << endl;
 }
