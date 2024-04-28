@@ -3,11 +3,13 @@
 #include <stdlib.h>
 using namespace std;
 
-void static PrintError();
+void PrintError();
 
-void static PrintLogIn();
+void PrintLogIn();
 
-void static PrintAddAccount();
+void PrintAddAccount();
 
-void static PrintPlayPiece();
+void PrintPlayPiece();
+
+void PrintRules();
 

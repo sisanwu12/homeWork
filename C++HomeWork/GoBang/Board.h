@@ -10,4 +10,7 @@ public:
 	void PrintBoard();
 	int getI(int y);
 	int getJ(int x);
+	char SwapPiece(int x, int y, char piece);
+	bool PlayPiece(int x, int y, char piece);
+
 };

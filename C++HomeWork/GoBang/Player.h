@@ -2,6 +2,10 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <conio.h>
+#include "Board.h"
+#include "Print.h"
+#include "Windows.h"
 
 using namespace std;
 
@@ -13,7 +17,7 @@ private:
 public:
 	Player(string account, string password);
 	Player();
-	bool PlayPiece(Board &board);
+	bool PlayPiece(Board* board);
 	string getAccount();
 	string getPassword();
 	char getPiece();

@@ -1,7 +1,5 @@
 #include "Player.h"
-#include "Print.h"
-#include "Board.h"
-#include "Windows.h"
+
 
 Player::Player() {};
 Player::Player(string account, string password) {
@@ -27,48 +25,59 @@ void Player::setPiece(char piece) {
 	this->piece = piece;
 }
 
-//玩家落子函数
-bool Player::PlayPiece(Board &board) {
-	int x, y;
-AGAINplayPiece:
-	PrintPlayPiece();
-	board.PrintBoard();
-	cout << "please input next piece location:" << endl;
-	cout << "X = ";
-	cin >> x;
-	cout << endl << "Y = ";
-	cin >> y;
-	if (x <= 0 || x > 15 || y <= 0 || y > 15) {
-		PrintError();
-		cout << "Error location!" << endl;
-		cout << "please input again" << endl;
-		cout << "please wait 3 second for continue" << endl;
-		Sleep(3000);
-		goto AGAINplayPiece;
-	}
-	if (board.board[board.getI(y)][board.getJ(x)].getEmpty()) {
-		PrintError();
-		cout << "This point has a piece already!" << endl;
-		cout << "please input again" << endl;
-		cout << "please wait 3 second for continue" << endl;
-		Sleep(3000);
-		goto AGAINplayPiece;
-	}
-	char style = board.board[board.getI(y)][board.getJ(x)].getStyle();
-	board.board[board.getI(y)][board.getJ(x)].setStyle(this->getPiece());
-	cout << endl << endl << endl;
-	board.PrintBoard();
-	cout << "Do you confirm this play piece?" << endl;
-	cout << "right please input 1 ; input anothr cancel" << endl;
-	string Y_N;
-	cin >> Y_N;
-	if (Y_N == "1") return true;
-	cout << "this play piece has been cancelled" << endl;
-	cout << "please wait 3 second for continue" << endl;
-	Sleep(3000);
-	return false;
-}
 
+//玩家落子函数
+bool Player::PlayPiece(Board* board) {
+	int x = 1, y = 1;
+	char cursor = '@';
+	char prior = board->SwapPiece(x, y, cursor);
+	char move;
+	while (true) {
+		system("cls");
+		PrintPlayPiece();
+		board->PrintBoard();
+		cout << "please use 'w','a','s','d' to move cursor" << endl;
+		cout << "input '1' to play piece" << endl;
+		cout << "input '0' to finish this play" << endl;
+		move = _getch();
+		switch (move) {
+		case 'w':	//光标上移
+			if (y == 15) break;
+			cursor = board->SwapPiece(x, y, prior);
+			y++;
+			prior = board->SwapPiece(x, y, cursor);
+			break;
+		case 'a':	//光标左移
+			if (x == 1) break;
+			cursor = board->SwapPiece(x, y, prior);
+			x--;
+			prior = board->SwapPiece(x, y, cursor);
+			break;
+		case 's':	//光标下移
+			if (y == 1) break;
+			cursor = board->SwapPiece(x, y, prior);
+			y--;
+			prior = board->SwapPiece(x, y, cursor);
+			break;
+		case 'd':	//光标右移
+			if (x == 15) break;
+			cursor = board->SwapPiece(x, y, prior);
+			x++;
+			prior = board->SwapPiece(x, y, cursor);
+			break;
+		case '1':	//落子
+			if (board->PlayPiece(x, y, this->piece)) return true;
+			PrintError();
+			cout << "this position has been play piece!" << endl;
+			cout << "please wait 3 second for continue" << endl;
+			Sleep(3000);
+			break;
+		case '0':	//退出
+			return false;
+		default: break;
+		}
+	}
+}
 
 //注册函数
 bool AddAccount(map<string, Player>& Map) {
@@ -159,6 +168,6 @@ Player* LogIn(map<string,Player> &Map) {
 	cout << "Too many password attempts!" << endl;
 	cout << "please wait 3 second for continue" << endl;
 	Sleep(3000);
-	return false;
+	return nullptr;
 } 
 
