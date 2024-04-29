@@ -11,6 +11,6 @@ private:
 public:
 	vector<Piece>& getBlack();
 	vector<Piece>& getWhite();
-	void pushBlack(Piece piece);
-	void pushWhite(Piece piece);
+	void pushBlack(Piece& piece);
+	void pushWhite(Piece& piece);
 };

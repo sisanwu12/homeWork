@@ -6,10 +6,7 @@
 using namespace std;
 
 // 判赢函数
-bool IsWin(Board* board, vector<Piece>& count);
-
-// 黑子入天元
-bool IsCelestial(Board* board);
+bool IsWin(xy& xy);
 
 // 三手可交换
 bool IsThridSwap(Board* board);
