@@ -12,8 +12,8 @@ string Player::getAccount() {
 string Player::getPassword() {
 	return this->password;
 }
-char Player::getPiece() {
-	return this->piece;
+char Player::getStyle() {
+	return this->style;
 }
 void Player::setAccount(string account) {
 	this->account = account;
@@ -21,13 +21,13 @@ void Player::setAccount(string account) {
 void Player::setPassword(string password) {
 	this->password = password;
 }
-void Player::setPiece(char piece) {
-	this->piece = piece;
+void Player::setStyle(char style) {
+	this->style = style;
 }
 
 
 //玩家落子函数
-bool Player::PlayPiece(Board* board) {
+Piece* Player::PlayPiece(Board* board) {
 	int x = 1, y = 1;
 	char cursor = '@';
 	char prior = board->SwapPiece(x, y, cursor);
@@ -66,14 +66,17 @@ bool Player::PlayPiece(Board* board) {
 			prior = board->SwapPiece(x, y, cursor);
 			break;
 		case '1':	//落子
-			if (board->PlayPiece(x, y, this->piece)) return true;
+			if (board->PlayPiece(x, y, this->style)) {
+				Piece* piece = new Piece(x, y, this->getStyle());
+				return piece;
+			}
 			PrintError();
 			cout << "this position has been play piece!" << endl;
 			cout << "please wait 3 second for continue" << endl;
 			Sleep(3000);
 			break;
 		case '0':	//退出
-			return false;
+			return nullptr;
 		default: break;
 		}
 	}

@@ -49,3 +49,19 @@ void PrintRules() {
 	cout << "8. Forbidden Hand in black piece player: three-three Forbidden Hand; four-four Forbidden Hand and Long Sequential Handshake" << endl;
 	cout << endl << endl << endl;
 }
+
+void PrintWin() {
+	system("cls");
+	cout << "--- --- --- --- --- --- ---" << endl;
+	cout << "--- ---!!!you WIN!!!--- ---" << endl;
+	cout << "--- --- --- --- --- --- ---" << endl;
+	cout << endl << endl << endl;
+}
+
+void PrintLose() {
+	system("cls");
+	cout << "--- --- --- --- --- --- ---" << endl;
+	cout << "--- ---  you lose   --- ---" << endl;
+	cout << "--- --- --- --- --- --- ---" << endl;
+	cout << endl << endl << endl;
+}

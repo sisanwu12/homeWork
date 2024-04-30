@@ -13,3 +13,7 @@ void PrintPlayPiece();
 
 void PrintRules();
 
+void PrintWin();
+
+void PrintLose();
+

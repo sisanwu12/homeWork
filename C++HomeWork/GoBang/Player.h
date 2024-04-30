@@ -13,17 +13,17 @@ class Player {
 private:
 	string account;
 	string password;
-	char piece;
+	char style;
 public:
 	Player(string account, string password);
 	Player();
-	bool PlayPiece(Board* board);
+	Piece* PlayPiece(Board* board);
 	string getAccount();
 	string getPassword();
-	char getPiece();
+	char getStyle();
 	void setAccount(string account);
 	void setPassword(string password);
-	void setPiece(char piece);
+	void setStyle(char style);
 };
 
 bool AddAccount(map<string, Player>& Map);

@@ -1,4 +1,5 @@
 #include "Count.h"
+
 vector<Piece>& Count::getBlack() {
 	return this->black;
 }

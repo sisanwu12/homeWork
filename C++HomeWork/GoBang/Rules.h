@@ -1,18 +1,19 @@
 #pragma once
 #include <iostream>
 #include "Board.h"
+#include "Player.h"
 #include "Piece.h"
 #include "Count.h"
 using namespace std;
 
 // 判赢函数
-bool IsWin(xy& xy);
+bool IsWin(vector<Piece>& count);
 
 // 三手可交换
-bool IsThridSwap(Board* board);
+void IsThridSwap(Board* board, Player* black, Player* white,Count* count);
 
 // 五手两打
-bool IsFifth(Board* board);
+void IsFifth(Board* board);
 
 // 三三禁手
 bool IsThreeThree(Board* board);
