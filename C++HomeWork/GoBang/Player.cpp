@@ -67,12 +67,11 @@ Piece* Player::PlayPiece(Board* board) {
 			break;
 		case '1':	//Âä×Ó
 			if (board->PlayPiece(x, y, this->style)) {
-				Piece* piece = new Piece(x, y, this->getStyle());
-				return piece;
+				Piece* p = new Piece(x, y, this->getStyle());
+				return p;
 			}
 			PrintError();
 			cout << "this position has been play piece!" << endl;
-			cout << "please wait 3 second for continue" << endl;
 			Sleep(3000);
 			break;
 		case '0':	//ÍË³ö
@@ -155,21 +154,18 @@ Player* LogIn(map<string,Player> &Map) {
 		cin >> password;
 		if (password == pos->second.getPassword()) {
 			cout << "Verification succeeded!" << endl;
-			cout << "please wait 3 second for continue" << endl;
 			Sleep(3000);
 			return &pos->second;
 		}
 		PrintError();
 		cout << "password error! " << endl;
 		cout << "there are " << 2 - i << " times to try!" << endl;
-		cout << "please wait 3 second for continue" << endl;
 		Sleep(3000);
 		system("cls");
 		cout << "welcome " << pos->first << " please input your password: " << endl;
 	}
 	PrintError();
 	cout << "Too many password attempts!" << endl;
-	cout << "please wait 3 second for continue" << endl;
 	Sleep(3000);
 	return nullptr;
 } 

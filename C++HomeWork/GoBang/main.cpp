@@ -14,7 +14,8 @@ int main() {
 	Count* count = new Count;
 	//board->PrintBoard();
 	Player* player = new Player;
-	player->setPiece(white);
+	player->setStyle(white);
+	bool BorW = true;
 	while (true) {
 		Piece* p = player->PlayPiece(board);
 		if (p == nullptr) {
@@ -22,10 +23,11 @@ int main() {
 			return 0;
 		}
 		count->pushWhite(*p);
-		if (IsWin(count->getWhite())) {
+		if (IsWin(count->getWhite(), BorW)) {
 			PrintWin();
 			return 0;
 		}
+		BorW = !BorW;
 	}
 	return 0;
 }
