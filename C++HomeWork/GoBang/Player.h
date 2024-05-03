@@ -6,6 +6,7 @@
 #include "Board.h"
 #include "Print.h"
 #include "Windows.h"
+#include <fstream>
 
 using namespace std;
 
