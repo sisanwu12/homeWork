@@ -30,6 +30,18 @@
     <ClCompile Include="Print.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Count.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Rules.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Mode.h">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Mode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h">
@@ -42,6 +54,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Print.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Count.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Rules.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

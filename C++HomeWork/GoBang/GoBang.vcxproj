@@ -130,6 +130,8 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Count.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mode.cpp" />
+    <ClCompile Include="Mode.h" />
     <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Print.cpp" />

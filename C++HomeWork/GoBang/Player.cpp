@@ -33,8 +33,6 @@ Piece* Player::PlayPiece(Board* board) {
 	char prior = board->SwapPiece(x, y, cursor);
 	char move;
 	while (true) {
-		system("cls");
-		PrintPlayPiece();
 		board->PrintBoard();
 		cout << "please use 'w','a','s','d' to move cursor" << endl;
 		cout << "input '1' to play piece" << endl;
@@ -74,8 +72,13 @@ Piece* Player::PlayPiece(Board* board) {
 			cout << "this position has been play piece!" << endl;
 			Sleep(3000);
 			break;
-		case '0':	//退出
-			return nullptr;
+		case '0': {	//退出
+			system("cls");
+			cout << "Do you want to close this game?" << endl;
+			cout << "input the number '1' to close,others to continue" << endl;
+			string YN;
+			if (YN == "1") return nullptr;
+		}
 		default: break;
 		}
 	}
@@ -92,7 +95,6 @@ AGAINaddAccount: // 账户 goto 点
 	if (Map.find(Account) != Map.end()) {
 		PrintError();
 		cout << "the account has already registered!" << endl;
-		cout << "please wait 3 second for continue" << endl;
 		Sleep(3000);
 		goto AGAINaddAccount;
 	}
@@ -109,7 +111,6 @@ AGAINpassword: // 密码 goto 点
 	if (Password1 != Password2) {
 		PrintError();
 		cout << "The passwords do not match!" << endl;
-		cout << "please wait 3 second for continue" << endl;
 		Sleep(3000);
 		goto AGAINpassword;
 	}
@@ -122,14 +123,12 @@ AGAINpassword: // 密码 goto 点
 	cin >> Y_N;
 	if (Y_N != "1") {
 		cout << "Registration has been cancelled" << endl;
-		cout << "please wait 3 second for continue" << endl;
 		Sleep(3000);
 		return false;
 	}
 	Player player(Account, Password1);
 	Map.insert(pair<string, Player>(player.getAccount(), player));
 	cout << "Successfully registered !" << endl;
-	cout << "please wait 3 second for continue" << endl;
 	Sleep(3000);
 	return true;
 }

@@ -63,7 +63,7 @@ bool checkWin(bool xCount[9], bool yCount[9], bool xyCount[9], bool yxCount[9]) 
 }
 
 //禁手规则
-bool Forbidden(bool xCount[9], bool yCount[9], bool xyCount[9], bool yxCount[9]) {
+bool BalanceBreaker(bool xCount[9], bool yCount[9], bool xyCount[9], bool yxCount[9]) {
 	int xcount = 0, ycount = 0, xycount = 0, yxcount = 0;
 	for (int i = 0; i < 9; i++) {
 		if (xCount[i] == true) xcount++;
@@ -96,7 +96,7 @@ bool Forbidden(bool xCount[9], bool yCount[9], bool xyCount[9], bool yxCount[9])
 	return false;
 }
 
-//规则函数
+//规则判断函数
 int IsWin(vector<Piece>& count,bool BorW,Board* board){
 	if (count.empty()) return 0;
 	int x = (count.end() - 1)->getX();
@@ -136,22 +136,23 @@ int IsWin(vector<Piece>& count,bool BorW,Board* board){
 		if (checkWin(xCount,yCount,xyCount,yxCount)) return 1;
 	}
 	else {
-		if (Forbidden(xCount, yCount, xyCount, yxCount)) return -1;
+		if (BalanceBreaker(xCount, yCount, xyCount, yxCount)) return -1;
 		if (checkWin(xCount, yCount, xyCount, yxCount)) return 2;
 	}
 	return 0;
 }
 
 // 三手可交换
-void IsThridSwap(Board* board,Player* black,Player* white,Count* count){
+int IsThridSwap(Board* board,Player* p1,Player* p2,Count* count){
 	system("cls");
 	cout << "please black piece player put 3 pieces on the board" << endl;
 	Sleep(3000);
 	for (int i = 0; i < 3; i++) {
-		Piece* p = black->PlayPiece(board);
+		system("cls");
+		Piece* p = p1->PlayPiece(board);
 		if (p == nullptr) {
 			PrintLose();
-			return;
+			return -1;
 		}
 		count->pushBlack(*p);
 	}
@@ -164,13 +165,8 @@ AGAINinput:
 	cout << "2. white piece" << endl;
 	string choose;
 	cin >> choose;
-	if (choose == "1") {
-		char tmp = black->getStyle();
-		black->setStyle(white->getStyle());
-		white->setStyle(tmp);
-		return;
-	}
-	else if (choose == "2") return;
+	if (choose == "1") return 1;
+	else if (choose == "2") return 0;
 	else {
 		PrintError();
 		cout << "input error" << endl;
