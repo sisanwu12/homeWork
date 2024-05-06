@@ -127,6 +127,12 @@ AGAINpassword: // ÃÜÂë goto µã
 	Player player(Account, Password1);
 	Map.insert(pair<string, Player>(player.getAccount(), player));
 	cout << "Successfully registered !" << endl;
+	ofstream ofs;
+	ofs.open("Player.txt", ios::out);
+	for (map<string, Player>::iterator it = Map.begin(); it != Map.end(); it++) {
+		ofs << it->second.getAccount() << "\t" << it->second.getPassword() << endl;
+	}
+	ofs.close();
 	Sleep(3000);
 	return true;
 }

@@ -48,12 +48,12 @@ void PlayerExit(map<string, Player>& Map) {
 void Play(map<string, Player>& Map) {
 	system("cls");
 	cout << "player 1 log in" << endl;
-	Sleep(3000);
+	Sleep(1000);
 	Player* p1 = LogIn(Map);
 	if (p1 == nullptr) return;
 	system("cls");
 	cout << "player 2 log in" << endl;
-	Sleep(3000);
+	Sleep(1000);
 	Player* p2 = LogIn(Map);
 	if (p2 == nullptr) return;
 MODEAGAIN:
