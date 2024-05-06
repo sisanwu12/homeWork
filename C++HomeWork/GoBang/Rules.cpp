@@ -7,6 +7,7 @@ void IsFifth(Board* board, Player* black, Player* white, Count* count) {
 	board->PrintBoard();
 	cout << "black piece player has 5 pieces on line" << endl;
 	cout << "plaese choose 2 position to put pieces" << endl;
+	Sleep(3000);
 	int x = (count->getBlack().end() - 1)->getX();
 	int y = (count->getBlack().end() - 1)->getY();
 	board->board[board->getI(y)][board->getJ(x)] = b.board[b.getI(y)][b.getJ(x)];
@@ -32,14 +33,16 @@ AGAINcin:
 	string choose;
 	cin >> choose;
 	if (choose == "1") {
-		board->board[board->getI(twopiece[0]->getY())][board->getI(twopiece[0]->getX())].setStyle(bla);
-		board->board[board->getI(twopiece[1]->getY())][board->getI(twopiece[1]->getX())].setEmpty(true);
-		board->board[board->getI(twopiece[1]->getY())][board->getI(twopiece[1]->getX())].setStyle(b.board[board->getI(twopiece[1]->getY())][board->getI(twopiece[1]->getX())].getStyle());
+		board->board[board->getI(twopiece[0]->getY())][board->getJ(twopiece[0]->getX())].setStyle(bla);
+		board->board[board->getI(twopiece[1]->getY())][board->getJ(twopiece[1]->getX())].setEmpty(true);
+		board->board[board->getI(twopiece[1]->getY())][board->getJ(twopiece[1]->getX())].setStyle(b.board[board->getI(twopiece[1]->getY())][board->getI(twopiece[1]->getX())].getStyle());
+		count->pushBlack(*twopiece[0]);
 	}
 	else if (choose == "2") {
-		board->board[board->getI(twopiece[1]->getY())][board->getI(twopiece[1]->getX())].setStyle(bla);
-		board->board[board->getI(twopiece[0]->getY())][board->getI(twopiece[0]->getX())].setEmpty(true);
-		board->board[board->getI(twopiece[0]->getY())][board->getI(twopiece[0]->getX())].setStyle(b.board[board->getI(twopiece[0]->getY())][board->getI(twopiece[0]->getX())].getStyle());
+		board->board[board->getI(twopiece[1]->getY())][board->getJ(twopiece[1]->getX())].setStyle(bla);
+		board->board[board->getI(twopiece[0]->getY())][board->getJ(twopiece[0]->getX())].setEmpty(true);
+		board->board[board->getI(twopiece[0]->getY())][board->getJ(twopiece[0]->getX())].setStyle(b.board[board->getI(twopiece[0]->getY())][board->getI(twopiece[0]->getX())].getStyle());
+		count->pushBlack(*twopiece[1]);
 	}
 	else {
 		PrintError();
@@ -61,9 +64,9 @@ bool checkWin(bool xCount[9], bool yCount[9], bool xyCount[9], bool yxCount[9]) 
 		else xynum = 0;
 		if (yxCount[i] == true) yxnum++;
 		else yxnum = 0;
+		if (xnum == 5 || ynum == 5 || xynum == 5 || yxnum == 5) return true;
 	}
-	if (xnum == 5 || ynum == 5 || xynum == 5 || yxnum == 5) return true;
-	else return false;
+	return false;
 }
 
 //Ω˚ ÷πÊ‘Ú
