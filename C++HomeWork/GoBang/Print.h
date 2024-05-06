@@ -7,6 +7,8 @@ void PrintError();
 
 void PrintLogIn();
 
+void PrintWelcome();
+
 void PrintAddAccount();
 
 void PrintPlayPiece();

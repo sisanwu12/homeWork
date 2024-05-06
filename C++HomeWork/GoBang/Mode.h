@@ -7,6 +7,6 @@
 using namespace std;
 
 //简易模式
-void Easy();
+void Simple(Player* p1, Player* p2);
 //标准模式
-void Standard();
+void Standard(Player* p1, Player* p2);

@@ -9,6 +9,14 @@ void PrintLogIn() {
 	cout << endl << endl << endl;
 }
 
+void PrintWelcome() {
+	system("cls");
+	cout << "--- --- --- --- --- --- ---" << endl;
+	cout << "---  welcome to Gobang  ---" << endl;
+	cout << "--- --- --- --- --- --- ---" << endl;
+	cout << endl << endl << endl;
+}
+
 //´íÎó
 void PrintError() {
 	system("cls");

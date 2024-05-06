@@ -18,7 +18,7 @@ private:
 public:
 	Player(string account, string password);
 	Player();
-	Piece* PlayPiece(Board* board);
+	Piece* PlayPiece(Board* board,bool BorW);
 	string getAccount();
 	string getPassword();
 	char getStyle();

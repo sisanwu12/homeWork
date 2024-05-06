@@ -7,11 +7,15 @@ void IsFifth(Board* board, Player* black, Player* white, Count* count) {
 	board->PrintBoard();
 	cout << "black piece player has 5 pieces on line" << endl;
 	cout << "plaese choose 2 position to put pieces" << endl;
+	int x = (count->getBlack().end() - 1)->getX();
+	int y = (count->getBlack().end() - 1)->getY();
+	board->board[board->getI(y)][board->getJ(x)] = b.board[b.getI(y)][b.getJ(x)];
+	count->getBlack().pop_back();
 	char wait = '#', bla = black->getStyle();
 	Piece *twopiece[2];
 	black->setStyle(wait);
 	for (int i = 0; i < 2; i++) {
-		Piece* p = black->PlayPiece(board);
+		Piece* p = black->PlayPiece(board,true);
 		if (p == nullptr) {
 			i--;
 			continue;
@@ -149,7 +153,7 @@ int IsThridSwap(Board* board,Player* p1,Player* p2,Count* count){
 	Sleep(3000);
 	for (int i = 0; i < 3; i++) {
 		system("cls");
-		Piece* p = p1->PlayPiece(board);
+		Piece* p = p1->PlayPiece(board,true);
 		if (p == nullptr) {
 			PrintLose();
 			return -1;

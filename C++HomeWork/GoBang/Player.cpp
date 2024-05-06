@@ -27,12 +27,15 @@ void Player::setStyle(char style) {
 
 
 //玩家落子函数
-Piece* Player::PlayPiece(Board* board) {
+Piece* Player::PlayPiece(Board* board,bool BorW) {
 	int x = 1, y = 1;
 	char cursor = '@';
 	char prior = board->SwapPiece(x, y, cursor);
 	char move;
 	while (true) {
+		PrintPlayPiece();
+		if(BorW) cout << "black piece player" << endl;
+		else cout << "white piece player" << endl;
 		board->PrintBoard();
 		cout << "please use 'w','a','s','d' to move cursor" << endl;
 		cout << "input '1' to play piece" << endl;
@@ -72,13 +75,8 @@ Piece* Player::PlayPiece(Board* board) {
 			cout << "this position has been play piece!" << endl;
 			Sleep(3000);
 			break;
-		case '0': {	//退出
-			system("cls");
-			cout << "Do you want to close this game?" << endl;
-			cout << "input the number '1' to close,others to continue" << endl;
-			string YN;
-			if (YN == "1") return nullptr;
-		}
+		case '0': 	//退出
+			return nullptr;
 		default: break;
 		}
 	}
@@ -144,7 +142,9 @@ Player* LogIn(map<string,Player> &Map) {
 	if (pos == Map.end()) {
 		PrintError();
 		cout << "can not find this account,please try again" << endl;
-		return nullptr;
+		delete player;
+		player = nullptr;
+		return player;
 	}
 	string password;
 	cout << "welcome " << pos->first << " please input your password: " << endl;
@@ -166,6 +166,8 @@ Player* LogIn(map<string,Player> &Map) {
 	PrintError();
 	cout << "Too many password attempts!" << endl;
 	Sleep(3000);
-	return nullptr;
+	delete player;
+	player = nullptr;
+	return player;
 } 
 
