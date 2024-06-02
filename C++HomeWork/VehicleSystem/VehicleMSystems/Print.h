@@ -8,4 +8,9 @@ public:
 	static void Error();
 	static void Welcome();
 	static void Bye();
+	static void AdminMune();
+	static void Admin();
+	static void INAccess();
+	static void OUTAccess();
+	static void Finished();
 };

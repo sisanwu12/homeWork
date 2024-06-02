@@ -30,6 +30,9 @@
     <ClCompile Include="Print.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Task.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CarOrder.h">

@@ -6,7 +6,7 @@
 
 class Task:public System {
 public:
-	static void Init();
-	static void Star();
-	static void End();
+	static Parking* Init();
+	static void Star(Parking* parking);
+	static void End(Parking* parking);
 };

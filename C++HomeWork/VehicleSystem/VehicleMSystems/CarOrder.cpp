@@ -1,5 +1,20 @@
 #include "CarOrder.h"
 
+// string 转换为 wstring
+static wstring string2wstring(string str)
+{
+	wstring result;
+	int len = MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.size(), NULL, 0);
+	if (len < 0)return result;
+	wchar_t* buffer = new wchar_t[len + 1];
+	if (buffer == NULL)return result;
+	MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.size(), buffer, len);
+	buffer[len] = '\0';
+	result.append(buffer);
+	delete[] buffer;
+	return result;
+}
+
 void CarOrder::setEndTime() {
 	this->end_time = this->getNow();
 }
@@ -22,8 +37,8 @@ void CarOrder::setMoney() {
 	}
 }
 
-CarOrder::CarOrder(string& car_no) : car_no(car_no),begin_time(getNow()),money(0) {
-	order_np = "order_" + to_string(begin_time.GetYear()) + "/" + to_string(begin_time.GetMonth()) + "/" + to_string(begin_time.GetDay()) + "_" + to_string(begin_time.GetHour()) + ":" + to_string(begin_time.GetMinute()) + ":" + to_string(begin_time.GetSecond());
+CarOrder::CarOrder(string& car_no,int park_num) : car_no(car_no),begin_time(getNow()),money(0),park_num(park_num) {
+	order_np = "order_" + to_string(this->begin_time.GetTime());
 }
 
 string CarOrder::getOrderNp() { return this->order_np; }
@@ -32,7 +47,16 @@ string CarOrder::getBTime() { return this->TheTime(this->begin_time); }
 string CarOrder::getETime() { return this->TheTime(this->end_time); }
 string CarOrder::getTSpan() { return this->time_span; }
 int CarOrder::getMoney() { return this->money; }
+int CarOrder::getParkNum() { return this->park_num; }
 
+void CarOrder::setOrderNP() {
+	this->order_np = "order_" + to_string(this->begin_time.GetTime());
+}
+
+void CarOrder::setBeginTime(string time) {
+	__time64_t t = stoi(time);
+	this->begin_time = CTime(t);
+}
 
 CTime CarOrder::getNow() {
 	// 获取当前时间，由 CTime类 提供
@@ -49,14 +73,17 @@ bool CarOrder::IsCarNo(string car_no) {
 	// 正则表达式匹配车牌号
 	// 符号 ^ 表示匹配字符串的开始位置
 	// 符号 $ 表示匹配字符串的结束位置
-	// (a|b|c){n} 表示前 n 个字符必须为 a,b,c 中的一个
-	// [A-Z]{n} 表示前 n 个字符必须为大写字母 A 到 Z 中的一个
-	// [A - Z0 - 9]{n} 表示前 n 个字符必须为大写字母 A 到 Z 以及数字 1 到 9 中的一个
+	// [A-Z] 表示字符必须为大写字母 A 到 Z 中的一个
 	// 以下的正则表达式可以用来匹配车牌号（第一个字符为省份缩写，第二个字符为大写字母，后五个字符为大写字母或数字）
-
-	regex pattern("^(京|津|沪|渝|冀|豫|云|辽|黑|湘|皖|鲁|新|苏|浙|赣|鄂|桂|晋|蒙|陕|吉|闽|贵|粤|青|藏|川|宁|琼|港|澳|台){1} [A - Z]{1} [A - Z0 - 9]{5}$");
-
-	// regex_match(a,b) 是 <regex> 提供的函数，用于判断 a 字符串是否满足 b 这个正则表达式
-
-	return regex_match(car_no, pattern);
+	// 以及新能源汽车的车牌号
+	// wstring是兼容中文的string容器，不过目前c++并没有完善 wstring 的功能
+	// 需要先用 string 来接收字符串，再调用to_wstring函数(自己实现，c++没有提供)
+	wstring str = string2wstring(car_no);
+	// 普通汽车+新能源
+	wregex regRule(L"^(([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z](([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳使领]))$");
+	wsmatch matchResult;
+	wstring::const_iterator iterStart = str.begin();
+	wstring::const_iterator iterEnd = str.end();
+	//DebugView(str, matchResult, regRule);
+	return (regex_search(iterStart, iterEnd, matchResult, regRule));
 }

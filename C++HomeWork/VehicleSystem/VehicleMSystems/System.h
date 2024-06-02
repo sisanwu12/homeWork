@@ -6,11 +6,11 @@
 #include <atltime.h>
 #include <regex>
 #include <cstdlib>
+#include <queue>
+#include <codecvt>
+#include <locale>
 using namespace std;
 
-class System 
-{
-public:
-
+class System {
 
 };
