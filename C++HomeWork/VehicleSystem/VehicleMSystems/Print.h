@@ -13,4 +13,5 @@ public:
 	static void INAccess();
 	static void OUTAccess();
 	static void Finished();
+	static void ShowParking();
 };

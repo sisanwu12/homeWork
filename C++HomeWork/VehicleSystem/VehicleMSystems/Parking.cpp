@@ -1,8 +1,6 @@
 #include "Parking.h"
 
 Parking::Parking(int all_place):all_place(all_place), occupied_place(all_place) {
-	park = new map<string, CarOrder>;
-	access = new queue<string>;
 	memset(this->emptyPark, 0, sizeof this->emptyPark);
 	cout << "---- ---- ---- ---- ---- ----" << endl;
 	cout << "--- 停车场已初始化成功！" << endl;
@@ -11,15 +9,8 @@ Parking::Parking(int all_place):all_place(all_place), occupied_place(all_place) 
 	cout << "---- ---- ---- ---- ---- ----" << endl;
 }
 
-Parking::~Parking() {
-	delete park;
-	delete access;
-	park = nullptr;
-	access = nullptr;
-}
-
 void Parking::setInit(CarOrder* car,int parknum) {
-	this->park->insert(pair<string, CarOrder>(car->getCarNo(), *car));
+	this->park.insert(pair<string, CarOrder>(car->getCarNo(), *car));
 	this->emptyPark[parknum] = true;
 }
 
@@ -32,7 +23,7 @@ void Parking::CarIN(string car_no) {
 		cout << "---- ---- ---- ---- ---- ----" << endl;
 		cout << endl << endl << endl;
 		cout << "是否进入便道等待？(输入数字 1 确认，输入其他内容取消)" << endl;
-		cout << "当前便道中有 " << this->getAccessLen() << " 辆车" << endl;
+		cout << "当前便道中有 " << this->getAccess().size() << " 辆车" << endl;
 		string INput;
 		cin >> INput;
 		if (INput == "1") {
@@ -49,7 +40,7 @@ void Parking::CarIN(string car_no) {
 	int parknum = this->getParkNum();
 	CarOrder* order = new CarOrder(car_no, parknum);
 	// 将该车存入停车场
-	this->park->insert(pair<string, CarOrder>(order->getCarNo(), *order));
+	this->park.insert(pair<string, CarOrder>(order->getCarNo(), *order));
 	// 剩余停车位减一
 	this->occupied_place -= 1;
 	system("cls");
@@ -72,11 +63,11 @@ void Parking::CarIN(string car_no) {
 }
 
 void Parking::INaccess(string car_no) {
-	this->access->push(car_no);
+	this->access.push(car_no);
 }
 
 void Parking::CarOUT(string car_no) {
-	auto it = this->park->find(car_no);
+	auto it = this->park.find(car_no);
 	// 获取结束时间
 	it->second.setEndTime();
 	// 计算费用
@@ -122,34 +113,31 @@ void Parking::CarOUT(string car_no) {
 	cout << "---- 单号：" << it->second.getOrderNp() << endl;
 	cout << "---- ---- ---- ---- ---- ----" << endl;
 
-	// 将车辆从停车场删除
-	this->park->erase(it);
 	this->emptyPark[it->second.getParkNum()] = false;
 	// 如果便道没车，剩余车位加1
-	if (!this->ISAccess()) {
+	if (!this->access.empty()) {
 		this->occupied_place += 1;
-		Sleep(3000);
+
 	} else {
 		// 便道第一辆车入库
 		this->CarIN(this->OUTaccess());
 	}
+	// 将车辆从停车场删除
+	this->park.erase(it);
+	Sleep(3000);
 }
 
 string Parking::OUTaccess() {
-	string car_no = this->access->front();
-	this->access->pop();
+	string car_no = this->access.front();
+	this->access.pop();
 	return car_no;
 }
 
-int Parking::getAccessLen() {
-	return this->access->size();
+queue<string> Parking::getAccess() {
+	return this->access;
 }
 
-bool Parking::ISAccess() {
-	return this->access->empty();
-}
-
-map<string, CarOrder>* Parking::getPark() {
+map<string, CarOrder> Parking::getPark() {
 	return this->park;
 }
 

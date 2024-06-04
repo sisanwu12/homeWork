@@ -102,3 +102,11 @@ void Print::Finished() {
 	cout << "====   3秒后自动跳转至运行界面  ====" << endl;
 }
 
+void Print::ShowParking() {
+	system("cls");
+	cout << "==== ==== ==== ==== ==== ==== ====" << endl;
+	cout << "==== ====    当前停产场   ==== ====" << endl;
+	cout << "==== ==== ==== ==== ==== ==== ====" << endl;
+	cout << endl << endl << endl;
+}
+

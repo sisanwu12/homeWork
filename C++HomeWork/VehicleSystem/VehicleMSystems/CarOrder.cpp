@@ -1,8 +1,7 @@
 #include "CarOrder.h"
 
 // string 转换为 wstring
-static wstring string2wstring(string str)
-{
+static wstring string2wstring(string str) {
 	wstring result;
 	int len = MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.size(), NULL, 0);
 	if (len < 0)return result;
@@ -60,7 +59,7 @@ void CarOrder::setBeginTime(string time) {
 
 CTime CarOrder::getNow() {
 	// 获取当前时间，由 CTime类 提供
-	CTime time = CTime::GetCurrentTime();
+	CTime time = CTime::GetTickCount();
 	return time;
 }
 
